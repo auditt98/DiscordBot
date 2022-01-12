@@ -6,7 +6,15 @@ const CLIENT_ID = process.env['client_id']
 const GUILD_ID = process.env['guild_id']
 const axios = require('axios');
 const prefix = '-'
-const keepAlive = require('./server');
+
+const express = require('express');
+const server = express();
+server.all('/', (req, res)=>{
+    res.send('Your bot is alive!');
+});
+function keepAlive(){
+    server.listen(3000, ()=>{console.log("Server is Ready!")});
+}
 const commands = [{
   name: 'ping',
   description: 'Replies with Pong!'
