@@ -88,7 +88,7 @@ client.on('messageCreate', (message) => {
           name: args[1],
           color: args[2],
           reason: 'Woop',
-        })
+        }).then(console.log).catch(console.error)
       } else {
         message.reply({
           content: 'Not enough arguments. Usage: `-create-role <role name> <role color>`'
