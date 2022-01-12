@@ -53,6 +53,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.on('messageCreate', (message) => {
+  console.log('message')
   if(message.content.startsWith(prefix)){
     console.log('message')
     let command = message.content.substring(1).toLowerCase();
@@ -84,6 +85,7 @@ client.on('messageCreate', (message) => {
   }
 })
 client.on('message', (message) => {
+  console.log('message')
   if(message.content.startsWith(prefix)){
     console.log('message')
     let command = message.content.substring(1).toLowerCase();
