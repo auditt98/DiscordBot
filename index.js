@@ -54,6 +54,38 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageCreate', (message) => {
   if(message.content.startsWith(prefix)){
+    console.log('message')
+    let command = message.content.substring(1).toLowerCase();
+    if(command === 'ping'){
+      axios.get('https://mcapi.us/server/status?ip=play.ethereal-mc.net')
+      .then(function (response) {
+        response = response.data
+        if(response.status){
+          if(response.status === 'success'){
+            if(response.online){
+              message.reply({
+                content: `Ethereal MC is online. Current players: ${response.players.now}`
+              })
+            } else {
+              message.reply({
+                content: `Ethereal MC is offline. Error: ${message.error}`
+              })
+            }
+          } else {
+            message.reply({
+              content: `Ethereal MC is offline. Error: ${message.error}`
+            })
+          }
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  }
+})
+client.on('message', (message) => {
+  if(message.content.startsWith(prefix)){
+    console.log('message')
     let command = message.content.substring(1).toLowerCase();
     if(command === 'ping'){
       axios.get('https://mcapi.us/server/status?ip=play.ethereal-mc.net')
