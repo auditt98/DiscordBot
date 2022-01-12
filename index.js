@@ -83,9 +83,17 @@ client.on('messageCreate', (message) => {
       })
     }
     if(args[0] === 'create-role'){
-      message.reply({
-        content: 'Testing argument'
-      })
+      if(args.length > 1){
+        guild.roles.create({
+          name: args[1],
+          color: args[2],
+          reason: 'Woop',
+        })
+      } else {
+        message.reply({
+          content: 'Not enough arguments. Usage: `-create-role <role name> <role color>`'
+        })
+      }
     }
   }
 });
