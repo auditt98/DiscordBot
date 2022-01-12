@@ -1,19 +1,22 @@
+require('dotenv').config()
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-
+const token = process.env['token']
+const CLIENT_ID = process.env['client_id']
+const GUILD_ID = process.env['guild_id']
 const commands = [{
   name: 'ping',
   description: 'Replies with Pong!'
 }]; 
 
-const rest = new REST({ version: '9' }).setToken('OTMwNjQ2NDEyNzg4NjQxODcy.Yd46Aw.hU02xAH-sCqEIxFLEYzmofnSNrM');
+const rest = new REST({ version: '9' }).setToken(token);
 
 (async () => {
   try {
     console.log('Started refreshing application (/) commands.');
 
     await rest.put(
-      Routes.applicationGuildCommands('930646412788641872', '930653016497987595'),
+      Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
       { body: commands },
     );
 
@@ -38,4 +41,4 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.login('OTMwNjQ2NDEyNzg4NjQxODcy.Yd46Aw.hU02xAH-sCqEIxFLEYzmofnSNrM');
+client.login(token);
