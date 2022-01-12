@@ -53,13 +53,11 @@ client.on('ready', () => {
 });
 
 
-
 client.on('messageCreate', (message) => {
-  console.log('message')
   if(message.content.startsWith(prefix)){
-    console.log('message')
     let command = message.content.substring(1).toLowerCase();
-    if(command === 'ping'){
+    let args = command.split(' ');
+    if(args[0] === 'ping'){
       axios.get('https://mcapi.us/server/status?ip=play.ethereal-mc.net')
       .then(function (response) {
         response = response.data
@@ -82,6 +80,11 @@ client.on('messageCreate', (message) => {
         }
       }).catch(error => {
         console.log(error)
+      })
+    }
+    if(args[0] === 'create-role'){
+      message.reply({
+        content: 'Testing argument'
       })
     }
   }
