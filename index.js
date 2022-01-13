@@ -111,63 +111,73 @@ client.on('messageCreate', async (message) => {
           }
         }
         let reply = ''
-        let epicResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config)
-        if(epicResponse.status === 200){
-          let data = epicResponse.data.data
-          reply += "---------------------**Player Info (Epic)**---------------------\n"
-            reply += `**Name **:${data.account.name}\n`
-            reply += `**ID **:${data.account.id}\n`
-            reply += `**Battlepass level:**: ${data.battlePass.level}\n`
-            reply += `**Match stats**:\n`
-            reply += `--------------------------**Overall**------------------------\n`
-            reply += `**Wins**: ${data.stats.all.overall.wins}\n`
-            reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
-            reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
-            reply += `**Kills**: ${data.stats.all.overall.kills}\n`
-            reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
-            reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
-            reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
-            reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
-            reply += '----------------------------------------------------------------'
+        try{
+          let epicResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config)
+          if(epicResponse.status === 200){
+            let data = epicResponse.data.data
+            reply += "---------------------**Player Info (Epic)**---------------------\n"
+              reply += `**Name **:${data.account.name}\n`
+              reply += `**ID **:${data.account.id}\n`
+              reply += `**Battlepass level:**: ${data.battlePass.level}\n`
+              reply += `**Match stats**:\n`
+              reply += `--------------------------**Overall**------------------------\n`
+              reply += `**Wins**: ${data.stats.all.overall.wins}\n`
+              reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
+              reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
+              reply += `**Kills**: ${data.stats.all.overall.kills}\n`
+              reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
+              reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
+              reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
+              reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
+              reply += '----------------------------------------------------------------'
+          }
+        } catch(error){
         }
-        let psnResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config)
-        if(psnResponse.status === 200){
-          let data = psnResponse.data.data
-            reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
-            reply += `**Name **:${data.account.name}\n`
-            reply += `**ID **:${data.account.id}\n`
-            reply += `**Battlepass level:**: ${data.battlePass.level}\n`
-            reply += `**Match stats**:\n`
-            reply += `--------------------------**Overall**------------------------\n`
-            reply += `**Wins**: ${data.stats.all.overall.wins}\n`
-            reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
-            reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
-            reply += `**Kills**: ${data.stats.all.overall.kills}\n`
-            reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
-            reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
-            reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
-            reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
-            reply += '----------------------------------------------------------------'
-        }
+        try{
+          let psnResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config)
+          if(psnResponse.status === 200){
+            let data = psnResponse.data.data
+              reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
+              reply += `**Name **:${data.account.name}\n`
+              reply += `**ID **:${data.account.id}\n`
+              reply += `**Battlepass level:**: ${data.battlePass.level}\n`
+              reply += `**Match stats**:\n`
+              reply += `--------------------------**Overall**------------------------\n`
+              reply += `**Wins**: ${data.stats.all.overall.wins}\n`
+              reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
+              reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
+              reply += `**Kills**: ${data.stats.all.overall.kills}\n`
+              reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
+              reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
+              reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
+              reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
+              reply += '----------------------------------------------------------------'
+          }
+        } catch(error){
 
-        let xblResponse = axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config)
-        if(xblResponse.status === 200){
-          let data = xblResponse.data.data
-          reply += "---------------------**Player Info (Xbox)**---------------------\n"
-            reply += `**Name **:${data.account.name}\n`
-            reply += `**ID **:${data.account.id}\n`
-            reply += `**Battlepass level:**: ${data.battlePass.level}\n`
-            reply += `**Match stats**:\n`
-            reply += `--------------------------**Overall**------------------------\n`
-            reply += `**Wins**: ${data.stats.all.overall.wins}\n`
-            reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
-            reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
-            reply += `**Kills**: ${data.stats.all.overall.kills}\n`
-            reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
-            reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
-            reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
-            reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
-            reply += '----------------------------------------------------------------'
+        }
+        try{
+          let xblResponse = axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config)
+          if(xblResponse.status === 200){
+            let data = xblResponse.data.data
+            reply += "---------------------**Player Info (Xbox)**---------------------\n"
+              reply += `**Name **:${data.account.name}\n`
+              reply += `**ID **:${data.account.id}\n`
+              reply += `**Battlepass level:**: ${data.battlePass.level}\n`
+              reply += `**Match stats**:\n`
+              reply += `--------------------------**Overall**------------------------\n`
+              reply += `**Wins**: ${data.stats.all.overall.wins}\n`
+              reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
+              reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
+              reply += `**Kills**: ${data.stats.all.overall.kills}\n`
+              reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
+              reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
+              reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
+              reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
+              reply += '----------------------------------------------------------------'
+          }
+        } catch {
+
         }
         if(reply !== ''){
           message.reply({
