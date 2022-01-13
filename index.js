@@ -203,7 +203,7 @@ client.on('messageCreate', (message) => {
       let defaultTo = 100
       if(args.length === 1){
         message.reply({
-          content: `Random number between ${defaultFrom} and ${defaultTo}: ${Math.floor(Math.random() * defaultTo + defaultFrom }`
+          content: `Random number between ${defaultFrom} and ${defaultTo}: ${Math.floor(Math.random() * defaultTo + defaultFrom) }`
         })
       }
       else if(args.length === 2){
