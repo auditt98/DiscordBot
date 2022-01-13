@@ -198,6 +198,32 @@ client.on('messageCreate', (message) => {
         })
       }
     }
+    if(cmd === 'random'){
+      let defaultFrom = 1
+      let defaultTo = 100
+      if(args.length === 1){
+        message.reply({
+          content: `Random number between ${defaultFrom} and ${defaultTo}: ${Math.floor(Math.random() * defaultTo) + defaultFrom}`
+        })
+      }
+      if(args.length === 1){
+        //should check if args[1] is a number but w/e
+        message.reply({
+          content: `Random number between ${defaultFrom} and ${args[1]}: ${Math.floor(Math.random() * args[1]) + defaultFrom}`
+        })
+      }
+      if(args.length === 2){
+        //should check if args[1] is a number but w/e
+        message.reply({
+          content: `Random number between ${args[1]} and ${args[2]}: ${Math.floor(Math.random() * args[2]) + args[1]}`
+        })
+      }
+      else {
+        message.reply({
+          content: 'Too many arguments. Usage: `-random [<from>] [<to>]`'
+        })
+      }
+    }
   }
 });
 
