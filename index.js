@@ -88,10 +88,12 @@ client.on('messageCreate', (message) => {
           name: args[1],
           color: args[2],
           reason: 'Woop',
-        }).then((result) => {
-          console.log(result)
+        }).then(role => {
+          message.mentions.members.forEach(member => {
+            member.roles.add(role)
+          })
           message.reply({
-            content: 'Role created!'
+            content: 'Role created and assigned!'
           })
         }).catch(console.log('Error creating role'))
       } else {
