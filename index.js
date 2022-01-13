@@ -203,19 +203,19 @@ client.on('messageCreate', (message) => {
       let defaultTo = 100
       if(args.length === 1){
         message.reply({
-          content: `Random number between ${defaultFrom} and ${defaultTo}: ${Math.floor(Math.random() * defaultTo) + defaultFrom }`
+          content: `Random number between ${defaultFrom} and ${defaultTo}: ${Number(Math.floor(Math.random() * defaultTo)) + Number(defaultFrom) }`
         })
       }
       else if(args.length === 2){
         //should check if args[1] is a number but w/e
         message.reply({
-          content: `Random number between ${defaultFrom} and ${args[1]}: ${Math.floor(Math.random() * args[1]) + defaultFrom}`
+          content: `Random number between ${defaultFrom} and ${args[1]}: ${Number(Math.floor(Math.random() * args[1])) + Number(defaultFrom)}`
         })
       }
       else if(args.length === 3){
         //should check if args[1] is a number but w/e
         message.reply({
-          content: `Random number between ${args[1]} and ${args[2]}: ${Math.floor(Math.random() * args[2]) + args[1]}`
+          content: `Random number between ${args[1]} and ${args[2]}: ${Number(Math.floor(Math.random() * args[2])) + Number(args[1])}`
         })
       }
       else {
