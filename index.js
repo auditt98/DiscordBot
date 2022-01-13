@@ -129,6 +129,11 @@ client.on('messageCreate', (message) => {
           message.reply({
             content: reply
           })
+        }).catch(error => {
+          console.log(error)
+          message.reply({
+            content: error
+          })
         })
       } else {
         message.reply({
