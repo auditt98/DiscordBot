@@ -98,7 +98,7 @@ client.on('messageCreate', (message) => {
         }).catch(console.log('Error creating role'))
       } else {
         message.reply({
-          content: 'Not enough arguments. Usage: `-create-role <role name> <role color>`'
+          content: 'Not enough arguments. Usage: `-create-role <role name> <role color> @mention1 @mention2 @mention3...`'
         })
       }
     }
