@@ -53,7 +53,7 @@ client.on('ready', () => {
 });
 
 
-client.on('messageCreate', async (message) => {
+client.on('messageCreate', (message) => {
   if(message.content.startsWith(prefix)){
     let command = message.content.substring(1);
     let args = command.split(' ');
@@ -111,84 +111,81 @@ client.on('messageCreate', async (message) => {
           }
         }
         let reply = ''
-        try{
-          let epicResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config)
-          if(epicResponse.status === 200){
-            let data = epicResponse.data.data
+        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config).then(function(response) {
+          if(response.status === 200){
+            response = response.data.data
             reply += "---------------------**Player Info (Epic)**---------------------\n"
-              reply += `**Name **:${data.account.name}\n`
-              reply += `**ID **:${data.account.id}\n`
-              reply += `**Battlepass level:**: ${data.battlePass.level}\n`
-              reply += `**Match stats**:\n`
-              reply += `--------------------------**Overall**------------------------\n`
-              reply += `**Wins**: ${data.stats.all.overall.wins}\n`
-              reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
-              reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
-              reply += `**Kills**: ${data.stats.all.overall.kills}\n`
-              reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
-              reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
-              reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
-              reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
-              reply += '----------------------------------------------------------------'
+            reply += `**Name **:${response.account.name}\n`
+            reply += `**ID **:${response.account.id}\n`
+            reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+            reply += `**Match stats**:\n`
+            reply += `--------------------------**Overall**------------------------\n`
+            reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+            reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+            reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+            reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+            reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+            reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+            reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+            reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
+            reply += '----------------------------------------------------------------'
           }
-        } catch(error){
-          console.log(error.response.status)
-        }
-        try{
-          let psnResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config)
-          if(psnResponse.status === 200){
-            let data = psnResponse.data.data
+        }).catch(error => {
+          axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config).then(function(response) {
+            if(response.status === 200){
+              response = response.data.data
               reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
-              reply += `**Name **:${data.account.name}\n`
-              reply += `**ID **:${data.account.id}\n`
-              reply += `**Battlepass level:**: ${data.battlePass.level}\n`
+              reply += `**Name **:${response.account.name}\n`
+              reply += `**ID **:${response.account.id}\n`
+              reply += `**Battlepass level:**: ${response.battlePass.level}\n`
               reply += `**Match stats**:\n`
               reply += `--------------------------**Overall**------------------------\n`
-              reply += `**Wins**: ${data.stats.all.overall.wins}\n`
-              reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
-              reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
-              reply += `**Kills**: ${data.stats.all.overall.kills}\n`
-              reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
-              reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
-              reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
-              reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
+              reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+              reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+              reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+              reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+              reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+              reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+              reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+              reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
               reply += '----------------------------------------------------------------'
-          }
-        } catch(error){
-          console.log(error.response.status)
-        }
-        try{
-          let xblResponse = axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config)
-          if(xblResponse.status === 200){
-            let data = xblResponse.data.data
-            reply += "---------------------**Player Info (Xbox)**---------------------\n"
-              reply += `**Name **:${data.account.name}\n`
-              reply += `**ID **:${data.account.id}\n`
-              reply += `**Battlepass level:**: ${data.battlePass.level}\n`
-              reply += `**Match stats**:\n`
-              reply += `--------------------------**Overall**------------------------\n`
-              reply += `**Wins**: ${data.stats.all.overall.wins}\n`
-              reply += `**Top 3**: ${data.stats.all.overall.top3}\n`
-              reply += `**Top 5**: ${data.stats.all.overall.top5}\n`
-              reply += `**Kills**: ${data.stats.all.overall.kills}\n`
-              reply += `**Kills Per Match**: ${data.stats.all.overall.killsPerMatch}\n`
-              reply += `**Deaths**: ${data.stats.all.overall.deaths}\n`
-              reply += `**Win Rate**: ${data.stats.all.overall.winRate}\n`
-              reply += `**Time played**: ${data.stats.all.overall.minutesPlayed} minutes\n`
-              reply += '----------------------------------------------------------------'
-          }
-        } catch {
-          console.log(error.response.status)
-        }
-        if(reply !== ''){
-          message.reply({
-            content: reply
+            }
+          }).catch(error => {
+            axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config).then(function(response) {
+              if(response.status === 200){
+                response = response.data.data
+                reply += "---------------------**Player Info (Xbox)**---------------------\n"
+                reply += `**Name **:${response.account.name}\n`
+                reply += `**ID **:${response.account.id}\n`
+                reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+                reply += `**Match stats**:\n`
+                reply += `--------------------------**Overall**------------------------\n`
+                reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+                reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+                reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+                reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+                reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+                reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+                reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+                reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
+                reply += '----------------------------------------------------------------'
+              }
+              if(reply !== ''){
+                message.reply({
+                  content: reply
+                })
+              } else {
+                message.reply({
+                  content: 'Player not found'
+                })
+              }
+            }).catch(error => {
+              message.reply({
+                content: 'Player not found'
+              })
+            })
           })
-        } else {
-          message.reply({
-            content: 'Player not found!'
-          })
-        }
+        })
       } else {
         message.reply({
           content: 'Not enough arguments. Usage: `-stats-fortnite <account name>`'
