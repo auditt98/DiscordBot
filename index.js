@@ -103,6 +103,26 @@ client.on('messageCreate', (message) => {
         })
       }
     }
+    if(cmd === 'stats-fortnite'){
+      if(args.length > 1){
+        let config = {
+          headers: {
+            Authorization: process.env.fortnite_api_key
+          }
+        }
+        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}`, config).then(response => {
+          response = response.data
+          let reply = "**Player Info**:\n"
+          reply += `Name: **${response.account.name}**\n`
+          reply += `ID: **${response.account.id}**\n`
+          reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+        })
+      } else {
+        message.reply({
+          content: 'Not enough arguments. Usage: `-stats-fortnite <account name>`'
+        })
+      }
+    }
   }
 });
 
