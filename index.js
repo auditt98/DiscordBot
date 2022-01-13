@@ -129,6 +129,9 @@ client.on('messageCreate', (message) => {
             reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
             reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
             reply += '----------------------------------------------------------------'
+            message.reply({
+              content: reply
+            })
           }
         }).catch(error => {
           axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config).then(function(response) {
@@ -149,6 +152,9 @@ client.on('messageCreate', (message) => {
               reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
               reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
               reply += '----------------------------------------------------------------'
+              message.reply({
+                content: reply
+              })
             }
           }).catch(error => {
             axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config).then(function(response) {
