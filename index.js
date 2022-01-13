@@ -116,6 +116,9 @@ client.on('messageCreate', (message) => {
           reply += `Name: **${response.account.name}**\n`
           reply += `ID: **${response.account.id}**\n`
           reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+          message.reply({
+            content: reply
+          })
         })
       } else {
         message.reply({
