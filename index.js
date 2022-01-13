@@ -112,10 +112,20 @@ client.on('messageCreate', (message) => {
         }
         axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}`, config).then(response => {
           response = response.data.data
-          let reply = "**Player Info**:\n"
-          reply += `Name: **${response.account.name}**\n`
-          reply += `ID: **${response.account.id}**\n`
+          let reply = "---------------------**Player Info**---------------------\n"
+          reply += `**Name **:${response.account.name}\n`
+          reply += `**ID **:${response.account.id}\n`
           reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+          reply += `**Match stats**:\n`
+          reply += `--------------------------**Overall**------------------------\n`
+          reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+          reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+          reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+          reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+          reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+          reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+          reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+          reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
           message.reply({
             content: reply
           })
