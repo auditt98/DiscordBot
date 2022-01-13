@@ -84,11 +84,16 @@ client.on('messageCreate', (message) => {
     }
     if(args[0] === 'create-role'){
       if(args.length > 1){
-        guild.roles.create({
+        message.guild.roles.create({
           name: args[1],
           color: args[2],
           reason: 'Woop',
-        }).then(console.log('testing')).catch(console.log('test error'))
+        }).then((result) => {
+          console.log(result)
+          message.reply({
+            content: 'Role created!'
+          })
+        }).catch(console.log('Error creating role'))
       } else {
         message.reply({
           content: 'Not enough arguments. Usage: `-create-role <role name> <role color>`'
