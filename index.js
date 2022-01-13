@@ -111,6 +111,7 @@ client.on('messageCreate', (message) => {
           }
         }
         axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}`, config).then(response => {
+          console.log(response)
           response = response.data
           let reply = "**Player Info**:\n"
           reply += `Name: **${response.account.name}**\n`
