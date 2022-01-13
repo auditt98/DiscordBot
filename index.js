@@ -111,10 +111,10 @@ client.on('messageCreate', (message) => {
           }
         }
         let reply = ''
-        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config).then(response => {
+        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config).then(function(response) {
           if(response.status === 200){
             response = response.data.data
-            let reply = "---------------------**Player Info (Epic)**---------------------\n"
+            reply += "---------------------**Player Info (Epic)**---------------------\n"
             reply += `**Name **:${response.account.name}\n`
             reply += `**ID **:${response.account.id}\n`
             reply += `**Battlepass level:**: ${response.battlePass.level}\n`
@@ -135,10 +135,10 @@ client.on('messageCreate', (message) => {
           //   content: error.response.data.error
           // })
         })
-        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config).then(response => {
+        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config).then(function(response) {
           if(response.status === 200){
             response = response.data.data
-            let reply = "---------------------**Player Info (Playstation Network)**---------------------\n"
+            reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
             reply += `**Name **:${response.account.name}\n`
             reply += `**ID **:${response.account.id}\n`
             reply += `**Battlepass level:**: ${response.battlePass.level}\n`
@@ -159,10 +159,10 @@ client.on('messageCreate', (message) => {
           //   content: error.response.data.error
           // })
         })
-        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config).then(response => {
+        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config).then(function(response) {
           if(response.status === 200){
             response = response.data.data
-            let reply = "---------------------**Player Info (Xbox)**---------------------\n"
+            reply += "---------------------**Player Info (Xbox)**---------------------\n"
             reply += `**Name **:${response.account.name}\n`
             reply += `**ID **:${response.account.id}\n`
             reply += `**Battlepass level:**: ${response.battlePass.level}\n`
