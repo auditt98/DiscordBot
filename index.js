@@ -132,6 +132,7 @@ client.on('messageCreate', async (message) => {
               reply += '----------------------------------------------------------------'
           }
         } catch(error){
+          console.log(error.response.status)
         }
         try{
           let psnResponse = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config)
@@ -154,7 +155,7 @@ client.on('messageCreate', async (message) => {
               reply += '----------------------------------------------------------------'
           }
         } catch(error){
-
+          console.log(error.response.status)
         }
         try{
           let xblResponse = axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config)
@@ -177,7 +178,7 @@ client.on('messageCreate', async (message) => {
               reply += '----------------------------------------------------------------'
           }
         } catch {
-
+          console.log(error.response.status)
         }
         if(reply !== ''){
           message.reply({
