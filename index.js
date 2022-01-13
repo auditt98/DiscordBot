@@ -53,7 +53,7 @@ client.on('ready', () => {
 });
 
 
-client.on('messageCreate', (message) => {
+client.on('messageCreate', async (message) => {
   if(message.content.startsWith(prefix)){
     let command = message.content.substring(1);
     let args = command.split(' ');
@@ -111,6 +111,8 @@ client.on('messageCreate', (message) => {
           }
         }
         let reply = ''
+        var data = await axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config)
+        console.log(data)
         axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config).then(function(response) {
           if(response.status === 200){
             response = response.data.data
