@@ -110,8 +110,13 @@ client.on('messageCreate', (message) => {
             Authorization: process.env.fortnite_api_key
           }
         }
+        let username = ''
+        for(let i = 1; i < args.length; i++){
+          //join args with a space except for the first one
+          username += args[i]
+        }
         let reply = ''
-        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=epic`, config).then(function(response) {
+        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config).then(function(response) {
           if(response.status === 200){
             response = response.data.data
             reply += "---------------------**Player Info (Epic)**---------------------\n"
@@ -134,7 +139,7 @@ client.on('messageCreate', (message) => {
             })
           }
         }).catch(error => {
-          axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=psn`, config).then(function(response) {
+          axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=psn`, config).then(function(response) {
             if(response.status === 200){
               response = response.data.data
               reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
@@ -157,7 +162,7 @@ client.on('messageCreate', (message) => {
               })
             }
           }).catch(error => {
-            axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${args[1]}&accountType=xbl`, config).then(function(response) {
+            axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config).then(function(response) {
               if(response.status === 200){
                 response = response.data.data
                 reply += "---------------------**Player Info (Xbox)**---------------------\n"
