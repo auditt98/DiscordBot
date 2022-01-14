@@ -124,40 +124,39 @@ client.on('messageCreate', (message) => {
         Promise.allSettled(promises).then((results) => {
           results.forEach((result) => {
             console.log(result)
-            if(result.status === 'fulfilled'){
-              let response =  result.value.data.data
-              let accType = ''
-              if(result.value.config.url.includes('accountType=xbl')){
-                accType = 'Xbox'
+            try{
+              if(result.status === 'fulfilled'){
+                let response =  result.value.data.data
+                let accType = ''
+                if(result.value.config.url.includes('accountType=xbl')){
+                  accType = 'Xbox'
+                }
+                if(result.value.config.url.includes('accountType=psn')){
+                  accType = 'Playstation'
+                }
+                if(result.value.config.url.includes('accountType=epic')){
+                  accType = 'Epic'
+                }
+  
+                reply += `\n---------------------**Player Info (${accType})**---------------------\n`
+                reply += `**Name **:${response.account.name}\n`
+                reply += `**ID **:${response.account.id}\n`
+                reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+                reply += `**Match stats**:\n`
+                reply += `--------------------------**Overall**------------------------\n`
+                reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+                reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+                reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+                reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+                reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+                reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+                reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+                reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
+                reply += '----------------------------------------------------------------'
               }
-              if(result.value.config.url.includes('accountType=psn')){
-                accType = 'Playstation'
-              }
-              if(result.value.config.url.includes('accountType=epic')){
-                accType = 'Epic'
-              }
-
-              reply += `\n---------------------**Player Info (${accType})**---------------------\n`
-              reply += `**Name **:${response.account.name}\n`
-              reply += `**ID **:${response.account.id}\n`
-              reply += `**Battlepass level:**: ${response.battlePass.level}\n`
-              reply += `**Match stats**:\n`
-              reply += `--------------------------**Overall**------------------------\n`
-              reply += `**Wins**: ${response.stats.all.overall.wins}\n`
-              reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
-              reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
-              reply += `**Kills**: ${response.stats.all.overall.kills}\n`
-              reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
-              reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
-              reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
-              reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
-              reply += '----------------------------------------------------------------'
+            } catch(error) {
+              console.log(error)
             }
-          }).catch(error => {
-            console.log(error)
-            message.reply({
-              content: 'Error getting stats'
-            })
           })
           message.reply({
             content: reply
