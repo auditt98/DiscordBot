@@ -116,6 +116,18 @@ client.on('messageCreate', (message) => {
           username += args[i]
         }
         let reply = ''
+        let promises = []
+        promises.push(axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config))
+        promises.push(axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=psn`, config))
+        promises.push(axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config))
+
+        Promise.allSettled(promises).then((results) => {
+          results.forEach((result) => {
+            if(result.status === 'fulfilled'){
+              console.log(result.data.data)
+            }
+          })
+        })
         axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config).then(function(response) {
           if(response.status === 200){
             response = response.data.data
@@ -165,7 +177,7 @@ client.on('messageCreate', (message) => {
             axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config).then(function(response) {
               if(response.status === 200){
                 response = response.data.data
-                reply += "---------------------**Player Info (Xbox)**---------------------\n"
+                reply += "---------------------**Player Info (Xbox Live)**---------------------\n"
                 reply += `**Name **:${response.account.name}\n`
                 reply += `**ID **:${response.account.id}\n`
                 reply += `**Battlepass level:**: ${response.battlePass.level}\n`
