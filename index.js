@@ -124,7 +124,7 @@ client.on('messageCreate', (message) => {
         Promise.allSettled(promises).then((results) => {
           results.forEach((result) => {
             if(result.status === 'fulfilled'){
-              console.log(result.data.data)
+              console.log(result)
             }
           })
         })
