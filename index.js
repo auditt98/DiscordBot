@@ -158,9 +158,15 @@ client.on('messageCreate', (message) => {
               console.log(error)
             }
           })
-          message.reply({
-            content: reply
-          })
+          if(reply === ''){
+            message.reply({
+              content: 'No stats found for that username.'
+            })
+          } else {
+            message.reply({
+              content: reply
+            })
+          }
         })
         // axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config).then(function(response) {
         //   if(response.status === 200){
