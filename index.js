@@ -122,10 +122,9 @@ client.on('messageCreate', (message) => {
         promises.push(axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config))
 
         Promise.allSettled(promises).then((results) => {
-          console.log(results.length)
           results.forEach((result) => {
+            console.log(result)
             if(result.status === 'fulfilled'){
-              console.log(result)
             }
           })
         })
