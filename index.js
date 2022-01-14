@@ -52,6 +52,20 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+async function connectToChannel(channel) {
+	const connection = joinVoiceChannel({
+		channelId: channel.id,
+		guildId: channel.guild.id,
+		adapterCreator: channel.guild.voiceAdapterCreator,
+	});
+	try {
+		await entersState(connection, VoiceConnectionStatus.Ready, 30_000);
+		return connection;
+	} catch (error) {
+		connection.destroy();
+		throw error;
+	}
+}
 
 client.on('messageCreate', async (message) => {
   if(message.content.startsWith(prefix)){
