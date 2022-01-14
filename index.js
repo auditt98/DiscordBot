@@ -125,36 +125,19 @@ client.on('messageCreate', (message) => {
           results.forEach((result) => {
             console.log(result)
             if(result.status === 'fulfilled'){
-            }
-          })
-        })
-        axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config).then(function(response) {
-          if(response.status === 200){
-            response = response.data.data
-            reply += "---------------------**Player Info (Epic)**---------------------\n"
-            reply += `**Name **:${response.account.name}\n`
-            reply += `**ID **:${response.account.id}\n`
-            reply += `**Battlepass level:**: ${response.battlePass.level}\n`
-            reply += `**Match stats**:\n`
-            reply += `--------------------------**Overall**------------------------\n`
-            reply += `**Wins**: ${response.stats.all.overall.wins}\n`
-            reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
-            reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
-            reply += `**Kills**: ${response.stats.all.overall.kills}\n`
-            reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
-            reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
-            reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
-            reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
-            reply += '----------------------------------------------------------------'
-            message.reply({
-              content: reply
-            })
-          }
-        }).catch(error => {
-          axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=psn`, config).then(function(response) {
-            if(response.status === 200){
-              response = response.data.data
-              reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
+              let response =  result.value.data.data
+              let accType = ''
+              if(result.value.config.url.contains('accountType=xbl')){
+                accType = 'Xbox'
+              }
+              if(result.value.config.url.contains('accountType=psn')){
+                accType = 'Playstation'
+              }
+              if(result.value.config.url.contains('accountType=epic')){
+                accType = 'Epic'
+              }
+
+              reply += `---------------------**Player Info ${accType}**---------------------\n`
               reply += `**Name **:${response.account.name}\n`
               reply += `**ID **:${response.account.id}\n`
               reply += `**Battlepass level:**: ${response.battlePass.level}\n`
@@ -169,46 +152,93 @@ client.on('messageCreate', (message) => {
               reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
               reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
               reply += '----------------------------------------------------------------'
-              message.reply({
-                content: reply
-              })
             }
-          }).catch(error => {
-            axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config).then(function(response) {
-              if(response.status === 200){
-                response = response.data.data
-                reply += "---------------------**Player Info (Xbox Live)**---------------------\n"
-                reply += `**Name **:${response.account.name}\n`
-                reply += `**ID **:${response.account.id}\n`
-                reply += `**Battlepass level:**: ${response.battlePass.level}\n`
-                reply += `**Match stats**:\n`
-                reply += `--------------------------**Overall**------------------------\n`
-                reply += `**Wins**: ${response.stats.all.overall.wins}\n`
-                reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
-                reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
-                reply += `**Kills**: ${response.stats.all.overall.kills}\n`
-                reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
-                reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
-                reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
-                reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
-                reply += '----------------------------------------------------------------'
-              }
-              if(reply !== ''){
-                message.reply({
-                  content: reply
-                })
-              } else {
-                message.reply({
-                  content: 'Player not found'
-                })
-              }
-            }).catch(error => {
-              message.reply({
-                content: 'Player not found'
-              })
-            })
+          })
+          message.reply({
+            content: reply
           })
         })
+        // axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config).then(function(response) {
+        //   if(response.status === 200){
+        //     response = response.data.data
+        //     reply += "---------------------**Player Info (Epic)**---------------------\n"
+        //     reply += `**Name **:${response.account.name}\n`
+        //     reply += `**ID **:${response.account.id}\n`
+        //     reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+        //     reply += `**Match stats**:\n`
+        //     reply += `--------------------------**Overall**------------------------\n`
+        //     reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+        //     reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+        //     reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+        //     reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+        //     reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+        //     reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+        //     reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+        //     reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
+        //     reply += '----------------------------------------------------------------'
+        //     message.reply({
+        //       content: reply
+        //     })
+        //   }
+        // }).catch(error => {
+        //   axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=psn`, config).then(function(response) {
+        //     if(response.status === 200){
+        //       response = response.data.data
+        //       reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
+        //       reply += `**Name **:${response.account.name}\n`
+        //       reply += `**ID **:${response.account.id}\n`
+        //       reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+        //       reply += `**Match stats**:\n`
+        //       reply += `--------------------------**Overall**------------------------\n`
+        //       reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+        //       reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+        //       reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+        //       reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+        //       reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+        //       reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+        //       reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+        //       reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
+        //       reply += '----------------------------------------------------------------'
+        //       message.reply({
+        //         content: reply
+        //       })
+        //     }
+        //   }).catch(error => {
+        //     axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config).then(function(response) {
+        //       if(response.status === 200){
+        //         response = response.data.data
+        //         reply += "---------------------**Player Info (Xbox Live)**---------------------\n"
+        //         reply += `**Name **:${response.account.name}\n`
+        //         reply += `**ID **:${response.account.id}\n`
+        //         reply += `**Battlepass level:**: ${response.battlePass.level}\n`
+        //         reply += `**Match stats**:\n`
+        //         reply += `--------------------------**Overall**------------------------\n`
+        //         reply += `**Wins**: ${response.stats.all.overall.wins}\n`
+        //         reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
+        //         reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
+        //         reply += `**Kills**: ${response.stats.all.overall.kills}\n`
+        //         reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
+        //         reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
+        //         reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
+        //         reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
+        //         reply += '----------------------------------------------------------------'
+        //       }
+        //       if(reply !== ''){
+        //         message.reply({
+        //           content: reply
+        //         })
+        //       } else {
+        //         message.reply({
+        //           content: 'Player not found'
+        //         })
+        //       }
+        //     }).catch(error => {
+        //       message.reply({
+        //         content: 'Player not found'
+        //       })
+        //     })
+        //   })
+        // })
       } else {
         message.reply({
           content: 'Not enough arguments. Usage: `-stats-fortnite <account name>`'
