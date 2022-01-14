@@ -290,6 +290,24 @@ client.on('messageCreate', (message) => {
         })
       }
     }
+    if(cmd === 'join'){
+      const channel = message.member?.voice.channel;
+      if (channel) {
+        try {
+          const connection = await connectToChannel(channel);
+          connection.subscribe(player);
+          message.reply({
+            content: `Joined ${channel.name}`
+          })
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        message.reply({
+          content: 'Join a voice channel then try again!'
+        });
+      }
+    }
   }
 });
 
