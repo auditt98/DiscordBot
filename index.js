@@ -1,6 +1,16 @@
 require('dotenv').config()
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const {
+	NoSubscriberBehavior,
+	StreamType,
+	createAudioPlayer,
+	createAudioResource,
+	entersState,
+	AudioPlayerStatus,
+	VoiceConnectionStatus,
+	joinVoiceChannel,
+} = require('@discordjs/voice');
 const token = process.env['token']
 const CLIENT_ID = process.env['client_id']
 const GUILD_ID = process.env['guild_id']
