@@ -137,7 +137,7 @@ client.on('messageCreate', (message) => {
                 accType = 'Epic'
               }
 
-              reply += `\n---------------------**Player Info ${accType}**---------------------\n`
+              reply += `\n---------------------**Player Info (${accType})**---------------------\n`
               reply += `**Name **:${response.account.name}\n`
               reply += `**ID **:${response.account.id}\n`
               reply += `**Battlepass level:**: ${response.battlePass.level}\n`
