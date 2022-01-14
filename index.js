@@ -64,7 +64,8 @@ client.on('ready', () => {
 
 async function connectToChannel(channel) {
 	const connection = joinVoiceChannel({
-		channelId: channel.id,
+		channelId: '922925201426120747',
+		// channelId: channel.id,
 		guildId: channel.guild.id,
 		adapterCreator: channel.guild.voiceAdapterCreator,
 	});
