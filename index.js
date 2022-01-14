@@ -50,15 +50,6 @@ client.on('interactionCreate', async interaction => {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  const channel = client.channels.cache.get('922927205066104842');
-  channel.join().then(connection => {
-    // Yay, it worked!
-    console.log(connection)
-    console.log("Successfully connected.");
-  }).catch(e => {
-    // Oh no, it errored! Let's log it to console :)
-    console.error(e);
-  });
 });
 
 
