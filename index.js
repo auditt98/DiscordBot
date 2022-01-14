@@ -127,13 +127,13 @@ client.on('messageCreate', (message) => {
             if(result.status === 'fulfilled'){
               let response =  result.value.data.data
               let accType = ''
-              if(result.value.config.url.contains('accountType=xbl')){
+              if(result.value.config.url.includes('accountType=xbl')){
                 accType = 'Xbox'
               }
-              if(result.value.config.url.contains('accountType=psn')){
+              if(result.value.config.url.includes('accountType=psn')){
                 accType = 'Playstation'
               }
-              if(result.value.config.url.contains('accountType=epic')){
+              if(result.value.config.url.includes('accountType=epic')){
                 accType = 'Epic'
               }
 
