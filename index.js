@@ -327,7 +327,7 @@ client.on('messageCreate', async (message) => {
         });
       }
     }
-    if(cmt === 'together-list'){
+    if(cmd === 'together-list'){
       message.reply({
         content: 'Available together argument: youtube, poker, chess, checkers, betrayal, fishing, lettertile, lettertile, doodlecrew, spellcast, awkword, puttparty'
       })
