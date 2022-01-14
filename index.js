@@ -327,11 +327,18 @@ client.on('messageCreate', async (message) => {
         });
       }
     }
+    if(cmt === 'together-list'){
+      message.reply({
+        content: 'Available together argument: youtube, poker, chess, checkers, betrayal, fishing, lettertile, lettertile, doodlecrew, spellcast, awkword, puttparty'
+      })
+    }
     if(cmd === 'together'){
       if(message.member.voice.channel) {
-        client.discordTogether.createTogetherCode(message.member.voice.channel.id, 'youtube').then(async invite => {
-            return message.channel.send(`${invite.code}`);
-        });
+        if(args.length > 1){
+          client.discordTogether.createTogetherCode(message.member.voice.channel.id, args[1]).then(async invite => {
+            return message.channel.send(`Please click on the blue link: ${invite.code}`);
+          });
+        }
       };
     }
   }
