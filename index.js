@@ -153,6 +153,11 @@ client.on('messageCreate', (message) => {
               reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
               reply += '----------------------------------------------------------------'
             }
+          }).catch(error => {
+            console.log(error)
+            message.reply({
+              content: 'Error getting stats'
+            })
           })
           message.reply({
             content: reply
