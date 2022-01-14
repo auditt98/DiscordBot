@@ -1,6 +1,7 @@
 require('dotenv').config()
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+
 const {
 	NoSubscriberBehavior,
 	StreamType,
@@ -49,7 +50,9 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const { DiscordTogether } = require('discord-together');
 
+client.discordTogether = new DiscordTogether(client);
 client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;
 
@@ -323,6 +326,13 @@ client.on('messageCreate', async (message) => {
           content: 'Join a voice channel then try again!'
         });
       }
+    }
+    if(cmd === 'together'){
+      if(message.member.voice.channel) {
+        client.discordTogether.createTogetherCode(message.member.voice.channel.id, 'youtube').then(async invite => {
+            return message.channel.send(`${invite.code}`);
+        });
+      };
     }
   }
 });
