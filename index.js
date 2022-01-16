@@ -345,8 +345,9 @@ client.on('messageCreate', async (message) => {
     if(cmd === 'stats-hypixel'){
       if(args.length > 1){
         hypixel.getPlayer(args[1]).then(player => {
+          console.log(player)
           message.reply({
-            content: player
+            content: "hello"
           })
           // console.log(player.level); // 141
 
