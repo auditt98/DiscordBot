@@ -336,7 +336,7 @@ client.on('messageCreate', async (message) => {
       if(message.member.voice.channel) {
         if(args.length > 1){
           client.discordTogether.createTogetherCode(message.member.voice.channel.id, args[1]).then(async invite => {
-            return message.channel.send(`Please click on the blue link: ${invite.code}`);
+            return message.channel.send(`Please click on the blue link: ${invite.code}.`);
           });
         }
       };
