@@ -197,87 +197,6 @@ client.on('messageCreate', async (message) => {
             })
           }
         })
-        // axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=epic`, config).then(function(response) {
-        //   if(response.status === 200){
-        //     response = response.data.data
-        //     reply += "---------------------**Player Info (Epic)**---------------------\n"
-        //     reply += `**Name **:${response.account.name}\n`
-        //     reply += `**ID **:${response.account.id}\n`
-        //     reply += `**Battlepass level:**: ${response.battlePass.level}\n`
-        //     reply += `**Match stats**:\n`
-        //     reply += `--------------------------**Overall**------------------------\n`
-        //     reply += `**Wins**: ${response.stats.all.overall.wins}\n`
-        //     reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
-        //     reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
-        //     reply += `**Kills**: ${response.stats.all.overall.kills}\n`
-        //     reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
-        //     reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
-        //     reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
-        //     reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
-        //     reply += '----------------------------------------------------------------'
-        //     message.reply({
-        //       content: reply
-        //     })
-        //   }
-        // }).catch(error => {
-        //   axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=psn`, config).then(function(response) {
-        //     if(response.status === 200){
-        //       response = response.data.data
-        //       reply += "---------------------**Player Info (Playstation Network)**---------------------\n"
-        //       reply += `**Name **:${response.account.name}\n`
-        //       reply += `**ID **:${response.account.id}\n`
-        //       reply += `**Battlepass level:**: ${response.battlePass.level}\n`
-        //       reply += `**Match stats**:\n`
-        //       reply += `--------------------------**Overall**------------------------\n`
-        //       reply += `**Wins**: ${response.stats.all.overall.wins}\n`
-        //       reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
-        //       reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
-        //       reply += `**Kills**: ${response.stats.all.overall.kills}\n`
-        //       reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
-        //       reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
-        //       reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
-        //       reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
-        //       reply += '----------------------------------------------------------------'
-        //       message.reply({
-        //         content: reply
-        //       })
-        //     }
-        //   }).catch(error => {
-        //     axios.get(`https://fortnite-api.com/v2/stats/br/v2?name=${username}&accountType=xbl`, config).then(function(response) {
-        //       if(response.status === 200){
-        //         response = response.data.data
-        //         reply += "---------------------**Player Info (Xbox Live)**---------------------\n"
-        //         reply += `**Name **:${response.account.name}\n`
-        //         reply += `**ID **:${response.account.id}\n`
-        //         reply += `**Battlepass level:**: ${response.battlePass.level}\n`
-        //         reply += `**Match stats**:\n`
-        //         reply += `--------------------------**Overall**------------------------\n`
-        //         reply += `**Wins**: ${response.stats.all.overall.wins}\n`
-        //         reply += `**Top 3**: ${response.stats.all.overall.top3}\n`
-        //         reply += `**Top 5**: ${response.stats.all.overall.top5}\n`
-        //         reply += `**Kills**: ${response.stats.all.overall.kills}\n`
-        //         reply += `**Kills Per Match**: ${response.stats.all.overall.killsPerMatch}\n`
-        //         reply += `**Deaths**: ${response.stats.all.overall.deaths}\n`
-        //         reply += `**Win Rate**: ${response.stats.all.overall.winRate}\n`
-        //         reply += `**Time played**: ${response.stats.all.overall.minutesPlayed} minutes\n`
-        //         reply += '----------------------------------------------------------------'
-        //       }
-        //       if(reply !== ''){
-        //         message.reply({
-        //           content: reply
-        //         })
-        //       } else {
-        //         message.reply({
-        //           content: 'Player not found'
-        //         })
-        //       }
-        //     }).catch(error => {
-        //       message.reply({
-        //         content: 'Player not found'
-        //       })
-        //     })
-        //   })
-        // })
       } else {
         message.reply({
           content: 'Not enough arguments. Usage: `-stats-fortnite <account name>`'
@@ -345,9 +264,25 @@ client.on('messageCreate', async (message) => {
     if(cmd === 'stats-hypixel'){
       if(args.length > 1){
         hypixel.getPlayer(args[1]).then(player => {
-          console.log(player)
+          let reply = ''
+          reply += `\n---------------------**Player Info**---------------------\n`
+          reply += `**Name **:${player.nickname}\n`
+          reply += `**Rank **:${player.rank}\n`
+          reply += `\n---------------------**Stats (Skywars)**---------------------\n`
+          reply += `**Wins **:${player.stats.skywars.wins}\n`
+          reply += `**Losses **:${player.stats.skywars.losses}\n`
+          reply += `**Kills **:${player.stats.skywars.kills}\n`
+          reply += `**Levels **:${player.stats.skywars.level}\n`
+          reply += `**Coins **:${player.stats.skywars.coins}\n`
+          reply += `\n---------------------**Stats (Bedwars)**---------------------\n`
+          reply += `**Wins **:${player.stats.bedwars.wins}\n`
+          reply += `**Losses **:${player.stats.bedwars.losses}\n`
+          reply += `**Kills **:${player.stats.bedwars.kills}\n`
+          reply += `**Coins **:${player.stats.bedwars.coins}\n`
+          reply += `\nMore stats will be coming soon.\n`
+          // console.log(player)
           message.reply({
-            content: "hello"
+            content: reply
           })
           // console.log(player.level); // 141
 
