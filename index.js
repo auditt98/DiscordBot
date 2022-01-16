@@ -1,7 +1,8 @@
 require('dotenv').config()
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-
+const Hypixel = require('hypixel-api-reborn');
+const hypixel = new Hypixel.Client(process.env['hypixel_api_key']);
 const {
 	NoSubscriberBehavior,
 	StreamType,
@@ -340,6 +341,20 @@ client.on('messageCreate', async (message) => {
           });
         }
       };
+    }
+    if(cmd === 'stats-hypixel'){
+      if(args.length > 1){
+        hypixel.getPlayer(args[1]).then(player => {
+          message.reply({
+            content: player
+          })
+          // console.log(player.level); // 141
+
+        }).catch(e => {
+          console.error(e);
+        });
+      }
+
     }
   }
 });
