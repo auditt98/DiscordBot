@@ -279,7 +279,10 @@ client.on('messageCreate', async (message) => {
           reply += `**Losses **:${player.stats.bedwars.losses}\n`
           reply += `**Kills **:${player.stats.bedwars.kills}\n`
           reply += `**Coins **:${player.stats.bedwars.coins}\n`
-          reply += `\nMore stats will be coming soon.\n`
+          reply += `**Bed destroyed **:${player.stats.bedwars.beds.broken}\n`
+          reply += `\n---------------------**Stats (Build battle)**---------------------\n`
+          reply += `**Wins **:${player.stats.buildbattle.totalWins}\n`
+          reply += `**Games played **:${player.stats.buildbattle.playedGames}\n`
           // console.log(player)
           message.reply({
             content: reply
