@@ -12,6 +12,7 @@ const {
 	AudioPlayerStatus,
 	VoiceConnectionStatus,
 	joinVoiceChannel,
+  VoiceConnection,
 } = require('@discordjs/voice');
 const token = process.env['token']
 const CLIENT_ID = process.env['client_id']
@@ -50,7 +51,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 })();
 
 const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const { DiscordTogether } = require('discord-together');
 
 client.discordTogether = new DiscordTogether(client);
@@ -73,13 +74,25 @@ async function connectToChannel(channel) {
 		guildId: channel.guild.id,
 		adapterCreator: channel.guild.voiceAdapterCreator,
 	});
-	try {
-		await entersState(connection, VoiceConnectionStatus.Ready, 30_000);
-		return connection;
-	} catch (error) {
-		connection.destroy();
-		throw error;
-	}
+  const audioResource = createAudioResource("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", {
+    inlineVolume: true
+  });
+  audioResource.volume.setVolume(0.5);
+  const player = createAudioPlayer()
+  VoiceConnection.subscribe(player)
+  player.play(audioResource);
+  player.on('idle', () => {
+    try {
+      player.stop()
+    } catch(e){
+      console.log(e)
+    }
+    try {
+      VoiceConnection.destroy()
+    } catch (e) {
+      connectToChannel(channel)
+    }
+  })
 }
 
 client.on('messageCreate', async (message) => {
