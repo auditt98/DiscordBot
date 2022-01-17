@@ -230,7 +230,7 @@ client.on('messageCreate', async (message) => {
       }
     }
     if(cmd === 'join'){
-      const channel = message.member?.voice.channel;
+      const channel = message.member.voice.channel;
       if (channel) {
         try {
           const connection = await connectToChannel(channel);
@@ -260,10 +260,14 @@ client.on('messageCreate', async (message) => {
           });
         } else {
           message.reply({
-            content: 'Not enough arguments. Usage: `-together <activity name>. Available activities: youtube, poker, chess, checkers, betrayal, fishing, lettertile, lettertile, doodlecrew, spellcast, awkword, puttparty`'
+            content: 'Not enough arguments. Usage: -together <activity name>. Available activities: youtube, poker, chess, checkers, betrayal, fishing, lettertile, lettertile, doodlecrew, spellcast, awkword, puttparty'
           })
         }
-      };
+      } else {
+        message.reply({
+          content: 'Join a voice channel then try again!'
+        });
+      }
     }
     if(cmd === 'stats-hypixel'){
       if(args.length > 1){
