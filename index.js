@@ -258,6 +258,10 @@ client.on('messageCreate', async (message) => {
           client.discordTogether.createTogetherCode(message.member.voice.channel.id, args[1]).then(async invite => {
             return message.channel.send(`Please click on the blue link: ${invite.code}.`);
           });
+        } else {
+          message.reply({
+            content: 'Not enough arguments. Usage: `-together <activity name>. Available activities: youtube, poker, chess, checkers, betrayal, fishing, lettertile, lettertile, doodlecrew, spellcast, awkword, puttparty`'
+          })
         }
       };
     }
@@ -290,10 +294,15 @@ client.on('messageCreate', async (message) => {
           // console.log(player.level); // 141
 
         }).catch(e => {
-          console.error(e);
+          message.reply({
+            content: 'No stats found for that username.'
+          })
         });
+      } else {
+        message.reply({
+          content: 'Not enough arguments. Usage: `-stats-hypixel <username>`'
+        })
       }
-
     }
   }
 });
