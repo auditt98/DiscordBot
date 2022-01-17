@@ -79,7 +79,7 @@ async function connectToChannel(channel) {
   });
   audioResource.volume.setVolume(0.5);
   const player = createAudioPlayer()
-  VoiceConnection.subscribe(player)
+  connection.subscribe(player)
   player.play(audioResource);
   player.on('idle', () => {
     try {
