@@ -23,6 +23,7 @@
     "express": "^4.17.2",
     "ffmpeg-static": "^4.4.1",
     "hypixel-api-reborn": "^10.0.0",
+    "ytdl": "^1.4.1",
     "ytdl-core": "^4.10.0"
   }
 }

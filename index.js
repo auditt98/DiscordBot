@@ -2,6 +2,7 @@ require('dotenv').config()
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const Hypixel = require('hypixel-api-reborn');
+const ytdl = require('ytdl-core');
 const hypixel = new Hypixel.Client(process.env['hypixel_api_key']);
 const {
 	NoSubscriberBehavior,
@@ -94,9 +95,10 @@ async function connectToChannel(channel) {
     }
   })
 }
-
+const queue = new Map();
 client.on('messageCreate', async (message) => {
   if(message.content.startsWith(prefix)){
+    const serverQueue = queue.get(message.guild.id);
     let command = message.content.substring(1);
     let args = command.split(' ');
     let cmd = args[0].toLowerCase();
@@ -250,6 +252,77 @@ client.on('messageCreate', async (message) => {
           connection.subscribe(player);
           message.reply({
             content: `Joined ${channel.name}`
+          })
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        message.reply({
+          content: 'Join a voice channel then try again!'
+        });
+      }
+    }
+    if(cmd === 'play'){
+      if(args.length > 1){
+        const channel = message.member.voice.channel;
+        if(channel){
+          let songQuery = ''
+          for(let i = 1; i < args.length; i++){
+            //join args with a space except for the first one
+            songQuery += args[i] + ' '
+          }
+          
+          const songInfo = await ytdl.getInfo(songQuery);
+          const song = {
+            title: songInfo.videoDetails.title,
+            url: songInfo.videoDetails.video_url
+          }
+          if (!serverQueue) {
+            const queueContruct = {
+              textChannel: message.channel,
+              voiceChannel: voiceChannel,
+              connection: null,
+              songs: [],
+              volume: 5,
+              playing: true
+            };
+        
+            queue.set(message.guild.id, queueContruct);
+        
+            queueContruct.songs.push(song);
+        
+            try {
+              const connection = await connectToChannel(channel);
+              connection.subscribe(player);
+              queueContruct.connection = connection;
+              play(message.guild, queueContruct.songs[0]);
+            } catch (err) {
+              console.log(err);
+              queue.delete(message.guild.id);
+              return message.channel.send(err);
+            }
+          }else {
+           serverQueue.songs.push(song);
+           console.log(serverQueue.songs);
+           message.reply({
+            content: `Added ${song.title} to the queue!`
+           });
+          }
+
+        } else {
+          message.reply({
+            content: 'Join a voice channel then try again!'
+          });
+        }
+      }
+    }
+    if(cmd === 'leave'){
+      const channel = message.member.voice.channel;
+      if (channel) {
+        try {
+          message.member.voice.channel.leave()
+          message.reply({
+            content: `Left ${channel.name}`
           })
         } catch (error) {
           console.error(error);
