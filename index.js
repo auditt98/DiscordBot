@@ -335,7 +335,7 @@ client.on('messageCreate', async (message) => {
     }
     if(cmd === 'assign-role'){
       if(args.length > 1){
-        let role = member.guild.roles.cache.find(role => role.name === args[1])
+        let role = message.member.guild.roles.find(role => role.name === args[1])
         if(role){
           message.mentions.members.forEach(member => {
             member.roles.add(role)
@@ -356,7 +356,7 @@ client.on('messageCreate', async (message) => {
     }
     if(cmd === 'unassign-role'){
       if(args.length > 1){
-        let role = member.guild.roles.cache.find(role => role.name === args[1])
+        let role = message.member.guild.roles.find(role => role.name === args[1])
         if(role){
           message.mentions.members.forEach(member => {
             member.roles.remove(role)
