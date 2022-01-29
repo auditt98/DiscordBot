@@ -101,7 +101,7 @@ client.on('messageCreate', async (message) => {
     const serverQueue = queue.get(message.guild.id);
     let command = message.content.substring(1);
     let args = command.split(' ');
-    let cmd = args[0].toLowerCase();
+    let cmd = args[0];
     if(cmd === 'ping'){
       axios.get('https://mcapi.us/server/status?ip=play.ethereal-mc.net')
       .then(function (response) {
