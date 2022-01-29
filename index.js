@@ -333,6 +333,48 @@ client.on('messageCreate', async (message) => {
         });
       }
     }
+    if(cmd === 'assign-role'){
+      if(args.length > 1){
+        let role = message.guild.roles.find(role => role.name === args[1])
+        if(role){
+          message.mentions.members.forEach(member => {
+            member.roles.add(role)
+          })
+          message.reply({
+            content: 'Added role to mentioned members.'
+          })
+        } else {
+          message.reply({
+            content: 'No role with that name found. Try again.'
+          });
+        }
+      } else {
+        message.reply({
+          content: 'Missing arguments. Usage: `-assign-role <role name> @<user>`'
+        });
+      }
+    }
+    if(cmd === 'unassign-role'){
+      if(args.length > 1){
+        let role = message.guild.roles.find(role => role.name === args[1])
+        if(role){
+          message.mentions.members.forEach(member => {
+            member.roles.remove(role)
+          })
+          message.reply({
+            content: 'Removed role from mentioned members.'
+          })
+        } else {
+          message.reply({
+            content: 'No role with that name found. Try again.'
+          });
+        }
+      } else {
+        message.reply({
+          content: 'Missing arguments. Usage: `-unassign-role <role name> @<user>`'
+        });
+      }
+    }
     if(cmd === 'together-list'){
       message.reply({
         content: 'Available together argument: youtube, poker, chess, checkers, betrayal, fishing, lettertile, lettertile, doodlecrew, spellcast, awkword, puttparty'
